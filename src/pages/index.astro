@@ -8,10 +8,29 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 ---
 
 <MainLayout>
-  <header class="hero">
-    <h1>Hi, I'm Mark.</h1>
-    <p>I build robots and the software that makes them move.</p>
-  </header>
+	<header class="hero">
+		<div class="hero-left">
+		  <img src="/headshot.jpg" alt="Mark - Robotics Engineer" class="profile-pic" />
+		  
+		  <div class="bio-text">
+			<h1>Hi, I'm Mark.</h1>
+			<h2>Robotics & Software Engineer</h2>
+			<p>
+			  I build robots and the software that makes them move. 
+			  Currently studying [Your Major] at [Your University].
+			</p>
+			
+			<div class="hero-links">
+			  <a href="mailto:your.email@example.com" class="btn-primary">Email Me</a>
+			  <a href="/resume.pdf" target="_blank" class="btn-secondary">View Resume</a>
+			</div>
+		  </div>
+		</div>
+	  
+		<div class="hero-right">
+		  <img src="/wheel.svg" alt="Adaptation" class="adaptation-wheel" />
+		</div>
+	</header>
 
   <main class="portfolio-container">
     <h2>My Projects</h2>
@@ -62,19 +81,111 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   }
 
   .hero {
-    text-align: center;
-    padding: 6rem 1rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6rem 2rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
     border-bottom: 1px solid #333;
   }
 
-  .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
+  .hero-left {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
   }
 
-  .hero p {
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+  }
+
+  .bio-text h1 {
+    font-size: 3rem;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .bio-text h2 {
     font-size: 1.25rem;
+    color: var(--accent);
+    margin: 0 0 1rem 0;
+    font-weight: 500;
+  }
+
+  .bio-text p {
     color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 500px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Contact Buttons */
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background-color: var(--accent);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background-color: #2563eb;
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--text-main);
+    border: 1px solid #333;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+  }
+
+  /* --- The Mahoraga Wheel Easter Egg --- */
+  .hero-right {
+    opacity: 0.2; /* Keeps it subtle so it doesn't overpower the page */
+  }
+
+  .adaptation-wheel {
+    width: 120px;
+    height: 120px;
+    /* This creates a slow, continuous rotation. We can tie this to Astro View Transitions later! */
+    animation: spin 12s linear infinite; 
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .hero {
+      flex-direction: column-reverse;
+      text-align: center;
+      gap: 3rem;
+    }
+    .hero-left {
+      flex-direction: column;
+    }
+    .hero-links {
+      justify-content: center;
+    }
   }
 
   .portfolio-container {
