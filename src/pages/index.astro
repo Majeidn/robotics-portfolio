@@ -81,7 +81,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   }
 
   .hero, .portfolio-container {
-    max-width: 1400px; /* Keeps it contained on massive ultra-wide monitors */
+    max-width: 3000px; /* Keeps it contained on massive ultra-wide monitors */
     width: 95%; /* Pushes everything out toward the edges of the screen */
     margin: 0 auto;
   }
@@ -207,8 +207,8 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   /* The Grid Layout */
   .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, 380px);; 
+    gap: 2.5rem;
     margin-top: 2rem;
   }
 
