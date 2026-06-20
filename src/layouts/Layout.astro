@@ -5,91 +5,92 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
 ---
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		
-		<title>{pageTitle}</title>
-	</head>
-	<body>
-		{/* This checks if the page is a Markdown project. If it is, it renders the button. */}
-		{frontmatter && (
-		  <nav class="top-nav">
-			<a href="https://majeidn.github.io/robotics-portfolio/" class="btn-back">&larr; Back to Portfolio</a>
-		  </nav>
-		)}
-	  
-		<main>
-		  <slot />
-		</main>
-	  </body>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        
+        <title>{pageTitle}</title>
+    </head>
+    <body>
+        {/* This checks if the page is a Markdown project. If it is, it renders the button. */}
+        {frontmatter && (
+          <nav class="top-nav">
+            <a href="https://majeidn.github.io/robotics-portfolio/" class="btn-back">&larr; Back to Portfolio</a>
+          </nav>
+        )}
+      
+        {/* I use a conditional class to only restrict width on project pages */}
+        <div class={frontmatter ? "project-wrapper" : ""}>
+          <slot />
+        </div>
+      </body>
 </html>
 
 <style is:global>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+    html,
+    body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
 
-	/* --- Navigation Styles --- */
-	.top-nav {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem 2rem 0 2rem; /* Aligns with the main content padding */
-  }
+    /*  Navigation Styles  */
+    .top-nav {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 2rem 0 2rem; 
+    }
 
-  .btn-back {
-    display: inline-block;
-    color: #9ca3af; /* Muted grey text */
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    background-color: #1e1e1e;
-    border: 1px solid #333;
-    transition: all 0.2s ease;
-  }
+    .btn-back {
+      display: inline-block;
+      color: #9ca3af; 
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      background-color: #1e1e1e;
+      border: 1px solid #333;
+      transition: all 0.2s ease;
+    }
 
-  .btn-back:hover {
-    color: #fff;
-    background-color: #2d2d2d;
-    border-color: #3b82f6; /* Subtle blue glow on hover */
-  }
-	
-	/* Base dark theme for the whole site */
-	body {
-    background-color: #121212;
-    color: #f3f4f6;
-    font-family: system-ui, -apple-system, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+    .btn-back:hover {
+      color: #fff;
+      background-color: #2d2d2d;
+      border-color: #3b82f6; 
+    }
+    
+    /* Base dark theme for the whole site */
+    body {
+      background-color: #121212;
+      color: #f3f4f6;
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
-  /* Centers and resizes the video */
-  .video-wrapper {
-    width: 100%;
-    max-width: 800px;
-    margin: 2rem auto;
-  }
+    /* Centers and resizes the video */
+    .video-wrapper {
+      width: 100%;
+      max-width: 800px;
+      margin: 2rem auto;
+    }
 
-  .video-wrapper iframe {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    border-radius: 8px;
-    border: 1px solid #333;
-  }
+    .video-wrapper iframe {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      border: 1px solid #333;
+    }
 
-  /* Makes sure the markdown content doesn't touch the edges of the screen */
-  main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-    line-height: 1.6;
-  }
+    /* This replaces the old 'main' rule and ONLY targets Markdown pages */
+    .project-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      line-height: 1.6;
+    }
 </style>
