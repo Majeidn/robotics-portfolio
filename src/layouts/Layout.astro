@@ -1,3 +1,6 @@
+---
+const { frontmatter } = Astro.props;
+---
 <!doctype html>
 <html lang="en">
 	<head>
@@ -9,11 +12,20 @@
 		<title>Astro Basics</title>
 	</head>
 	<body>
-		<slot />
-	</body>
+		{/* This checks if the page is a Markdown project. If it is, it renders the button. */}
+		{frontmatter && (
+		  <nav class="top-nav">
+			<a href="/" class="btn-back">&larr; Back to Portfolio</a>
+		  </nav>
+		)}
+	  
+		<main>
+		  <slot />
+		</main>
+	  </body>
 </html>
 
-<style>
+<style is:global>
 	html,
 	body {
 		margin: 0;
@@ -21,8 +33,43 @@
 		height: 100%;
 	}
 
-	/* Paste the video styles here: */
-	.video-wrapper {
+	/* --- Navigation Styles --- */
+	.top-nav {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 2rem 0 2rem; /* Aligns with the main content padding */
+  }
+
+  .btn-back {
+    display: inline-block;
+    color: #9ca3af; /* Muted grey text */
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    transition: all 0.2s ease;
+  }
+
+  .btn-back:hover {
+    color: #fff;
+    background-color: #2d2d2d;
+    border-color: #3b82f6; /* Subtle blue glow on hover */
+  }
+	
+	/* Base dark theme for the whole site */
+	body {
+    background-color: #121212;
+    color: #f3f4f6;
+    font-family: system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Centers and resizes the video */
+  .video-wrapper {
     width: 100%;
     max-width: 800px;
     margin: 2rem auto;
@@ -34,5 +81,13 @@
     aspect-ratio: 16 / 9;
     border-radius: 8px;
     border: 1px solid #333;
+  }
+
+  /* Makes sure the markdown content doesn't touch the edges of the screen */
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    line-height: 1.6;
   }
 </style>

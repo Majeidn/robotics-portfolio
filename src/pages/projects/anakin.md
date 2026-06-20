@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/Layout.astro
 title: Autonomous Pick and Place System
 summary: Autonomous robotic sorting system that uses computer vision, forward and inverse kinematics, and quintic trajectory planning.
 image: /images/rover-thumbnail.jpg
@@ -16,3 +17,12 @@ Here is a video of the arm in action:
     allowfullscreen>
   </iframe>
 </div>
+
+### Project Overview
+
+### Hardware Setup
+
+
+<a href="/anakin-report.pdf" target="_blank" style="display: inline-block; background: #3b82f6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 1rem;">
+  📄 Read the Full PDF Report
+</a>
