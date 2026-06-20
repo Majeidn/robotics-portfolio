@@ -17,25 +17,28 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     <h2>My Projects</h2>
     
     <div class="project-grid">
-      {projects.map((project) => (
-        <article class="project-card">
-          <img src={project.frontmatter.image} alt={project.frontmatter.title} class="thumbnail" />
-          
-          <div class="card-content">
-            <h3>{project.frontmatter.title}</h3>
-            <p>{project.frontmatter.summary}</p>
-            
-            <div class="tech-stack">
-              {project.frontmatter.tech.map((tool) => (
-                <span class="tech-badge">{tool}</span>
-              ))}
-            </div>
-            
-            <a href={project.url} class="btn-learn-more">Learn More &rarr;</a>
-          </div>
-        </article>
-      ))}
-    </div>
+		{projects.map((project) => (
+		  /* 1. The whole card is now the link */
+		  <a href={project.url} class="project-card">
+			
+			<img src={project.frontmatter.image} alt={project.frontmatter.title} class="thumbnail" />
+			
+			<div class="card-content">
+			  <h3>{project.frontmatter.title}</h3>
+			  <p>{project.frontmatter.summary}</p>
+			  
+			  <div class="tech-stack">
+				{project.frontmatter.tech.map((tool) => (
+				  <span class="tech-badge">{tool}</span>
+				))}
+			  </div>
+			  
+			  /* 2. The old button is now a span */
+			  <span class="btn-learn-more">Learn More &rarr;</span>
+			</div>
+		  </a>
+		))}
+	</div>
   </main>
 </MainLayout>
 
@@ -92,6 +95,9 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 
   /* The Card Design */
   .project-card {
+    display: block;             /* Ensures the link fills the whole grid space */
+    text-decoration: none;      /* Removes the blue link underline */
+    color: inherit;             /* Keeps your text colors exactly how they were */
     background-color: var(--card-dark);
     border-radius: 8px;
     overflow: hidden;
