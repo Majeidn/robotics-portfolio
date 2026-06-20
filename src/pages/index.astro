@@ -82,13 +82,13 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 
   .hero {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Pushes the wheel to the far right */
     align-items: center;
-    padding: 6rem 2rem 4rem;
-    max-width: 1200px;
+    padding: 6rem 0 4rem 0;
+    max-width: 1400px; /* Increased from 1200px */
+    width: 90%; /* Stretches the container to use most of the screen */
     margin: 0 auto;
     border-bottom: 1px solid #333;
-    width: 100%; /* Forces the container to stretch to the edges */
   }
 
   .hero-left {
@@ -161,7 +161,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     border-color: var(--accent);
   }
 
-  /* --- The Mahoraga Wheel Easter Egg --- */
+  /*  The Mahoraga Wheel Easter Egg  */
   .hero-right {
     opacity: 0.2; /* Keeps it subtle so it doesn't overpower the page */
   }
@@ -194,22 +194,23 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   }
 
   .portfolio-container {
-    max-width: 1200px;
+    max-width: 1400px; 
+    width: 90%;
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 4rem 0;
   }
 
   /* The Grid Layout */
   .project-grid {
     display: grid;
-    /* This automatically creates columns that fit the screen size */
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
   }
 
   /* The Card Design */
   .project-card {
+	max-width: 450px;
     display: block;             /* Ensures the link fills the whole grid space */
     text-decoration: none;      /* Removes the blue link underline */
     color: inherit;             /* Keeps the text colors exactly how they were */
