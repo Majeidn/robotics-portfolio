@@ -10,7 +10,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 <MainLayout>
 	<header class="hero">
 		<div class="hero-left">
-		  <img src="/headshot.jpg" alt="Mark - Robotics Engineer" class="profile-pic" />
+		  <img src="/robotics-portfolio/headshot.jpg" alt="Mark - Robotics Engineer" class="profile-pic" />
 		  
 		  <div class="bio-text">
 			<h1>Hi, I'm Mark.</h1>
@@ -21,14 +21,14 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 			</p>
 			
 			<div class="hero-links">
-			  <a href="mailto:your.email@example.com" class="btn-primary">Email Me</a>
+			  <a href="mailto:mkheyfets@wpi.edu" class="btn-primary">Email Me</a>
 			  <a href="/resume.pdf" target="_blank" class="btn-secondary">View Resume</a>
 			</div>
 		  </div>
 		</div>
 	  
 		<div class="hero-right">
-		  <img src="/wheel.svg" alt="Adaptation" class="adaptation-wheel" />
+		  <img src="/robotics-portfolio/wheel.svg" alt="Adaptation" class="adaptation-wheel" />
 		</div>
 	</header>
 
@@ -88,11 +88,12 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     max-width: 1200px;
     margin: 0 auto;
     border-bottom: 1px solid #333;
+    width: 100%; /* Forces the container to stretch to the edges */
   }
 
   .hero-left {
     display: flex;
-    gap: 2rem;
+    gap: 3rem; 
     align-items: center;
   }
 
@@ -102,6 +103,10 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--accent);
+  }
+
+  .bio-text {
+    text-align: left; 
   }
 
   .bio-text h1 {
