@@ -1,15 +1,17 @@
 ---
-const { frontmatter } = Astro.props;
+const { frontmatter, title } = Astro.props;
+
+const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
 ---
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		
+		<title>{pageTitle}</title>
 	</head>
 	<body>
 		{/* This checks if the page is a Markdown project. If it is, it renders the button. */}
