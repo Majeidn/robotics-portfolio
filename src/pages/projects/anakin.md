@@ -23,6 +23,6 @@ Here is a video of the arm in action:
 ### Hardware Setup
 
 
-<a href="https://majeidn.github.io/robotics-portfolio/anakin-report.pdf" target="_blank" style="display: inline-block; background: #3b82f6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 1rem;">
+<a href="https://majeidn.github.io/robotics-portfolio/anakin-report.pdf?v=2" target="_blank" style="display: inline-block; background: #3b82f6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 1rem;">
   📄 Read the Full PDF Report
 </a>
