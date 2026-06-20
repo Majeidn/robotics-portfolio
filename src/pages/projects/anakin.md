@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Layout.astro
-title: Autonomous Pick and Place System
-summary: Autonomous robotic sorting system that uses computer vision, forward and inverse kinematics, and quintic trajectory planning.
+title: Anakin
+summary: Autonomous Pick-and-Place robotic sorting system that uses computer vision, forward and inverse kinematics, and quintic trajectory planning.
 image: /images/rover-thumbnail.jpg
 tech: [MATLAB, Computer Vision, FK/IK, Image Processing]
 ---
@@ -23,6 +23,6 @@ Here is a video of the arm in action:
 ### Hardware Setup
 
 
-<a href="/anakin-report.pdf" target="_blank" style="display: inline-block; background: #3b82f6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 1rem;">
+<a href="https://majeidn.github.io/robotics-portfolio/anakin-report.pdf" target="_blank" style="display: inline-block; background: #3b82f6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 1rem;">
   📄 Read the Full PDF Report
 </a>
