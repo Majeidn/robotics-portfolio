@@ -3,7 +3,8 @@
 import MainLayout from '../layouts/Layout.astro';
 
 // 2. Fetch all the Markdown projects from your content folder 
-const projects = await Astro.glob('../content/projects/anakin.md');
+// @ts-ignore
+const projects = Object.values(import.meta.glob('./projects/anakin.md', { eager: true })) as any[];
 ---
 
 <MainLayout>
