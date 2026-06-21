@@ -12,7 +12,6 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         <meta name="generator" content={Astro.generator} />
         
         <title>{pageTitle}</title>
-		<ViewTransition />
     </head>
     <body>
         {/* This checks if the page is a Markdown project. If it is, it renders the button. */}
@@ -28,18 +27,18 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         </div>
 
         <script>
-          // Engages the clutch when a link is clicked
-          document.addEventListener('astro:before-preparation', () => {
-            document.documentElement.classList.add('is-transitioning');
-          });
-          
-          // Disengages the clutch when the new page is loaded
-          document.addEventListener('astro:page-load', () => {
-            setTimeout(() => {
-              document.documentElement.classList.remove('is-transitioning');
-            }, 400);
-          });
-        </script>
+			// 1. Spin the wheel right before the browser leaves the current page
+			window.addEventListener('beforeunload', () => {
+			  document.documentElement.classList.add('is-transitioning');
+			});
+			
+			// 2. Stop the wheel shortly after the new page finishes loading
+			window.addEventListener('DOMContentLoaded', () => {
+			  setTimeout(() => {
+				document.documentElement.classList.remove('is-transitioning');
+			  }, 400); // 400ms delay lets the spin finish smoothly as the page appears
+			});
+		</script>
       </body>
 </html>
 
