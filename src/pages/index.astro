@@ -47,7 +47,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 			  <p>{project.frontmatter.summary}</p>
 			  
 			  <div class="tech-stack">
-				{project.frontmatter.tech.map((tool) => (
+				{project.frontmatter.tech.map((tool: string) => (
 				  <span class="tech-badge">{tool}</span>
 				))}
 			  </div>
@@ -55,7 +55,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 			  <span class="btn-learn-more">Learn More &rarr;</span>
 			</div>
 		  </a>
-		))}
+		))}›
 	</div>
   </main>
 </MainLayout>
