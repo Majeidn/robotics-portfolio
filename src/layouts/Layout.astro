@@ -18,14 +18,13 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
 		<ClientRouter />
     </head>
     <body>
-		<div class="global-wheel-container">
-			<img 
-			  src="/robotics-portfolio/wheel.svg" 
-			  alt="Adaptation" 
-			  class="global-wheel" 
-			  transition:persist="mahoraga-wheel" 
-			/>
-		</div>
+		<div class="global-wheel-container" transition:persist="mahoraga-wheel">
+            <img 
+              src="/robotics-portfolio/wheel.svg" 
+              alt="Adaptation" 
+              class="global-wheel" 
+            />
+        </div>
 
         {/* This checks if the page is a Markdown project. If it is, it renders the button. */}
         {frontmatter && (
@@ -126,7 +125,7 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
     top: 2rem;
     right: 5%; 
     opacity: 0.2;
-    z-index: 100;
+    z-index: 9999;
     pointer-events: none; 
   }
 
