@@ -1,5 +1,4 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
 const { frontmatter, title } = Astro.props;
 
 const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
@@ -13,7 +12,7 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         <meta name="generator" content={Astro.generator} />
         
         <title>{pageTitle}</title>
-		<ViewTransitions />
+		<ViewTransition />
     </head>
     <body>
         {/* This checks if the page is a Markdown project. If it is, it renders the button. */}
