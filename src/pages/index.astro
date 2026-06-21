@@ -16,8 +16,8 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 			<h1>Hi, I'm Mark.</h1>
 			<h2>Robotics & Software Engineer</h2>
 			<p>
-			  I build robots and the software that makes them move. 
-			  Currently studying [Your Major] at [Your University].
+			  I build robots and sometimes the software that makes them move. 
+			  Currently studying Robotics Engineering at Worcester Polytechnic Institute.
 			</p>
 			
 			<div class="hero-links">
@@ -173,8 +173,8 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   }
 
   .adaptation-wheel {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     /* This creates a slow, continuous rotation. We can tie this to Astro View Transitions later! */
     animation: spin 12s linear infinite; 
   }
@@ -189,7 +189,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     .hero {
       flex-direction: column-reverse;
       text-align: center;
-      gap: 3rem;
+      gap: 2rem;
     }
     .hero-left {
       flex-direction: column;
@@ -197,6 +197,10 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     .hero-links {
       justify-content: center;
     }
+	.hero-right {
+      align-self: center; 
+      margin-top: -2rem; 
+      margin-bottom: -1rem; 
   }
 
   /* The Grid Layout */
