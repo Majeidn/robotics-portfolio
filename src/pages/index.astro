@@ -27,6 +27,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
           </div>
         </div>
       
+        <!-- The Wheel is restored to the header! -->
         <div class="hero-right">
           <img src="/robotics-portfolio/wheel.svg" alt="Adaptation" class="adaptation-wheel" />
         </div>
@@ -40,7 +41,9 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
           /* 1. The whole card is now the link */
           <a href={project.url} class="project-card">
             
-            <img src={project.frontmatter.image} alt={project.frontmatter.title} class="thumbnail" />
+            <div class="thumbnail-wrapper">
+              <img src={project.frontmatter.image} alt={project.frontmatter.title} class="thumbnail" />
+            </div>
             
             <div class="card-content">
               <h3>{project.frontmatter.title}</h3>
@@ -61,23 +64,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 </MainLayout>
 
 <style>
-  /* --- The Dark Mode Engineering Aesthetic --- */
-  
-  :root {
-    --bg-dark: #121212;
-    --card-dark: #1E1E1E;
-    --accent: #3b82f6; /* A clean, technical blue */
-    --text-main: #f3f4f6;
-    --text-muted: #9ca3af;
-  }
-
-  body {
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    font-family: system-ui, -apple-system, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+  /* Note: All color variables (--bg-main, --accent, etc.) are now inherited from Layout.astro! */
 
   .hero, .portfolio-container {
     max-width: 3000px; 
@@ -90,7 +77,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     justify-content: space-between; 
     align-items: center;
     padding: 6rem 0 4rem 0;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--border-color);
   }
 
   .hero-left {
@@ -115,6 +102,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   .bio-text h1 {
     font-size: 3rem;
     margin: 0 0 0.5rem 0;
+    color: var(--text-main);
   }
 
   .bio-text h2 {
@@ -147,17 +135,17 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 
   .btn-primary {
     background-color: var(--accent);
-    color: white;
+    color: white; /* Stays white even in light mode for contrast */
   }
 
   .btn-primary:hover {
-    background-color: #2563eb;
+    background-color: var(--accent-hover);
   }
 
   .btn-secondary {
     background-color: transparent;
     color: var(--text-main);
-    border: 1px solid #333;
+    border: 1px solid var(--border-color);
   }
 
   .btn-secondary:hover {
@@ -174,19 +162,18 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   .adaptation-wheel {
     width: 100px;
     height: 100px;
-    /* Clean, linear rotation every 7 seconds */
-    animation: spin 8s cubic-bezier(0.65, 0, 0.35, 1) infinite; 
+    /* Clean, linear rotation every 8 seconds */
+    animation: heavy-crank 8s cubic-bezier(0.65, 0, 0.35, 1) infinite; 
+    transition: filter 0.3s ease; /* Smooth transition for light mode color invert */
   }
 
-  @keyframes spin {
-    /* From 0 seconds to 6.4 seconds, the wheel is locked at 0 degrees */
+  @keyframes heavy-crank {
     0%, 80% { 
       transform: rotate(0deg); 
     }
-    /* In the final 1.6 seconds, it executes the heavy spin */
     100% { 
       transform: rotate(360deg);
-  	}
+    }
   }
 
   /* Mobile Responsiveness */
@@ -225,24 +212,34 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     display: block;             
     text-decoration: none;      
     color: inherit;             
-    background-color: var(--card-dark);
+    background-color: var(--bg-card);
     border-radius: 8px;
     overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid #333;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+    border: 1px solid var(--border-color);
   }
 
   .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15); /* Lowered shadow opacity slightly for light mode */
     border-color: var(--accent);
+  }
+
+  .thumbnail-wrapper {
+    width: 100%;
+    height: 240px;
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s ease;
   }
 
   .thumbnail {
     width: 100%;
-    height: auto; 
-	display: block;
-    border-bottom: 1px solid #333;
+    height: 100%;
+    object-fit: contain; 
+    padding: 1rem;
+    box-sizing: border-box;
+    display: block;
   }
 
   .card-content {
@@ -269,18 +266,19 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   }
 
   .tech-badge {
-    background-color: #2d2d2d;
+    background-color: var(--badge-bg);
     color: var(--accent);
     padding: 0.25rem 0.75rem;
     border-radius: 999px;
     font-size: 0.875rem;
     font-weight: 600;
+    transition: background-color 0.3s ease;
   }
 
   .btn-learn-more {
     display: inline-block;
     background-color: var(--accent);
-    color: white;
+    color: white; /* Stays white for contrast */
     padding: 0.5rem 1rem;
     text-decoration: none;
     border-radius: 4px;
@@ -289,6 +287,6 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   }
 
   .btn-learn-more:hover {
-    background-color: #2563eb;
+    background-color: var(--accent-hover);
   }
 </style>

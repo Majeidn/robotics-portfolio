@@ -16,8 +16,23 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         <title>{pageTitle}</title>
 
         <ClientRouter />
+
+        {/* This tiny script runs immediately to prevent a "flash" of dark mode if the user prefers light mode */}
+        <script is:inline>
+          if (typeof localStorage !== 'undefined' && localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.add('light-theme');
+          }
+        </script>
     </head>
     <body>
+        {/* The Global Theme Toggle Button */}
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
+          {/* Sun Icon (shows in dark mode) */}
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          {/* Moon Icon (shows in light mode) */}
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+
         {/* This checks if the page is a Markdown project. If it is, it renders the button. */}
         {frontmatter && (
           <nav class="top-nav">
@@ -29,10 +44,52 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         <div class={frontmatter ? "project-wrapper" : ""}>
           <slot />
         </div>
+
+        {/* The Toggle Logic */}
+        <script>
+          document.addEventListener('astro:page-load', () => {
+            const toggleBtn = document.getElementById('theme-toggle');
+            if (toggleBtn) {
+              toggleBtn.addEventListener('click', () => {
+                document.documentElement.classList.toggle('light-theme');
+                if (document.documentElement.classList.contains('light-theme')) {
+                  localStorage.setItem('theme', 'light');
+                } else {
+                  localStorage.setItem('theme', 'dark');
+                }
+              });
+            }
+          });
+        </script>
       </body>
 </html>
 
 <style is:global>
+    /* --- GLOBAL COLOR VARIABLES --- */
+    :root {
+      /* Default Dark Theme */
+      --bg-main: #121212;
+      --bg-card: #1E1E1E;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent: #3b82f6; 
+      --accent-hover: #2563eb;
+      --border-color: #333333;
+      --badge-bg: #2d2d2d;
+    }
+
+    /* Light Theme Overrides */
+    html.light-theme {
+      --bg-main: #f9fafb;
+      --bg-card: #ffffff;
+      --text-main: #111827;
+      --text-muted: #4b5563;
+      --accent: #2563eb; 
+      --accent-hover: #1d4ed8;
+      --border-color: #e5e7eb;
+      --badge-bg: #e5e7eb;
+    }
+
     html,
     body {
         margin: 0;
@@ -40,7 +97,52 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         height: 100%;
     }
 
-    /* Navigation Styles  */
+    /* Base theme for the whole site */
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Theme Toggle Button Styles */
+    .theme-toggle {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Swap icons based on theme */
+    .moon-icon { display: none; }
+    html.light-theme .sun-icon { display: none; }
+    html.light-theme .moon-icon { display: block; }
+
+    /* Invert the Mahoraga wheel in light mode so it remains visible */
+    html.light-theme .adaptation-wheel {
+      filter: invert(1);
+      opacity: 0.1;
+    }
+
+    /* Navigation Styles */
     .top-nav {
       max-width: 800px;
       margin: 0 auto;
@@ -49,30 +151,20 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
 
     .btn-back {
       display: inline-block;
-      color: #9ca3af; 
+      color: var(--text-muted); 
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 600;
       padding: 0.5rem 1rem;
       border-radius: 6px;
-      background-color: #1e1e1e;
-      border: 1px solid #333;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
       transition: all 0.2s ease;
     }
 
     .btn-back:hover {
-      color: #fff;
-      background-color: #2d2d2d;
-      border-color: #3b82f6; 
-    }
-    
-    /* Base dark theme for the whole site */
-    body {
-      background-color: #121212;
-      color: #f3f4f6;
-      font-family: system-ui, -apple-system, sans-serif;
-      margin: 0;
-      padding: 0;
+      color: var(--text-main);
+      border-color: var(--accent); 
     }
 
     /* Centers and resizes the video */
@@ -87,7 +179,7 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
       height: auto;
       aspect-ratio: 16 / 9;
       border-radius: 8px;
-      border: 1px solid #333;
+      border: 1px solid var(--border-color);
     }
 
     /* This replaces the old 'main' rule and ONLY targets Markdown pages */
@@ -96,5 +188,13 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
       margin: 0 auto;
       padding: 2rem;
       line-height: 1.6;
+    }
+
+    /* Responsiveness for Toggle Button */
+    @media (max-width: 768px) {
+      .theme-toggle {
+        top: 1rem;
+        right: 1rem;
+      }
     }
 </style>
