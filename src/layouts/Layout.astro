@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 const { frontmatter, title } = Astro.props;
 
 const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
@@ -12,6 +13,7 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         <meta name="generator" content={Astro.generator} />
         
         <title>{pageTitle}</title>
+		<ViewTransitions />
     </head>
     <body>
         {/* This checks if the page is a Markdown project. If it is, it renders the button. */}
@@ -25,6 +27,20 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         <div class={frontmatter ? "project-wrapper" : ""}>
           <slot />
         </div>
+
+        <script>
+          // Engages the clutch when a link is clicked
+          document.addEventListener('astro:before-preparation', () => {
+            document.documentElement.classList.add('is-transitioning');
+          });
+          
+          // Disengages the clutch when the new page is loaded
+          document.addEventListener('astro:page-load', () => {
+            setTimeout(() => {
+              document.documentElement.classList.remove('is-transitioning');
+            }, 400);
+          });
+        </script>
       </body>
 </html>
 

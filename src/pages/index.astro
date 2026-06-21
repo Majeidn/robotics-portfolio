@@ -175,8 +175,16 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   .adaptation-wheel {
     width: 100px;
     height: 100px;
-    /* This creates a slow, continuous rotation. We can tie this to Astro View Transitions later! */
-    animation: spin 12s linear infinite; 
+    /* Sped up to 1.5s so it noticeably cranks during the quick page load */
+    animation: spin 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite; 
+    
+    /* The Safety Brake: The wheel is paused by default */
+    animation-play-state: paused; 
+  }
+
+  /* When the global script says we are transitioning, release the brake! */
+  :global(.is-transitioning) .adaptation-wheel {
+    animation-play-state: running;
   }
 
   @keyframes spin {
