@@ -1,200 +1,314 @@
 ---
-import { ClientRouter } from 'astro:transitions';
+// 1. Import your layout (make sure the path matches where you saved it) 
+import MainLayout from '../layouts/Layout.astro';
 
-const { frontmatter, title } = Astro.props;
-
-const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
+// 2. Fetch all the Markdown projects from your content folder 
+// @ts-ignore
+const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true })) as any[];
 ---
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        
-        <title>{pageTitle}</title>
 
-        <ClientRouter />
-
-        {/* This tiny script runs immediately to prevent a "flash" of dark mode if the user prefers light mode */}
-        <script is:inline>
-          if (typeof localStorage !== 'undefined' && localStorage.getItem('theme') === 'light') {
-            document.documentElement.classList.add('light-theme');
-          }
-        </script>
-    </head>
-    <body>
-        {/* The Global Theme Toggle Button */}
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
-          {/* Sun Icon (shows in dark mode) */}
-          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-          {/* Moon Icon (shows in light mode) */}
-          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-        </button>
-
-        {/* This checks if the page is a Markdown project. If it is, it renders the button. */}
-        {frontmatter && (
-          <nav class="top-nav">
-            <a href="https://majeidn.github.io/robotics-portfolio/" class="btn-back">&larr; Back to Portfolio</a>
-          </nav>
-        )}
-      
-        {/* I use a conditional class to only restrict width on project pages */}
-        <div class={frontmatter ? "project-wrapper" : ""}>
-          <slot />
+<MainLayout>
+    <header class="hero">
+        <div class="hero-left">
+          <img src="/robotics-portfolio/headshot.jpg" alt="Mark - Robotics Engineer" class="profile-pic" />
+          
+          <div class="bio-text">
+            <h1>Hi, I'm Mark.</h1>
+            <h2>Robotics Engineer</h2>
+            <p>
+              I build robots and sometimes the software that makes them move. 
+              Currently studying Robotics Engineering at Worcester Polytechnic Institute.
+            </p>
+            
+            <div class="hero-links">
+              <a href="mailto:mkheyfets@wpi.edu" class="btn-primary">Email Me</a>
+              <a href="/robotics-portfolio/resume.pdf" target="_blank" class="btn-secondary">View Resume</a>
+            </div>
+          </div>
         </div>
+      
+        <!-- The Wheel is restored to the header! -->
+        <div class="hero-right">
+          <img src="/robotics-portfolio/wheel.svg" alt="Adaptation" class="adaptation-wheel" />
+        </div>
+    </header>
 
-        {/* The Toggle Logic */}
-        <script>
-          document.addEventListener('astro:page-load', () => {
-            const toggleBtn = document.getElementById('theme-toggle');
-            if (toggleBtn) {
-              toggleBtn.addEventListener('click', () => {
-                document.documentElement.classList.toggle('light-theme');
-                if (document.documentElement.classList.contains('light-theme')) {
-                  localStorage.setItem('theme', 'light');
-                } else {
-                  localStorage.setItem('theme', 'dark');
-                }
-              });
-            }
-          });
-        </script>
-      </body>
-</html>
+  <main class="portfolio-container">
+    <h2>My Projects</h2>
+    
+    <div class="project-grid">
+        {projects.map((project) => (
+          /* 1. The whole card is now the link */
+          <a href={project.url} class="project-card">
+            
+            <div class="thumbnail-wrapper">
+              <img src={project.frontmatter.image} alt={project.frontmatter.title} class="thumbnail" />
+            </div>
+            
+            <div class="card-content">
+              <h3>{project.frontmatter.title}</h3>
+              <p>{project.frontmatter.summary}</p>
+              
+              <div class="tech-stack">
+                {project.frontmatter.tech.map((tool: string) => (
+                  <span class="tech-badge">{tool}</span>
+                ))}
+              </div>
+              
+              <span class="btn-learn-more">Learn More &rarr;</span>
+            </div>
+          </a>
+        ))}
+    </div>
+  </main>
+</MainLayout>
 
-<style is:global>
-    /* --- GLOBAL COLOR VARIABLES --- */
-    :root {
-      /* Default Dark Theme */
-      --bg-main: #121212;
-      --bg-card: #1E1E1E;
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --accent: #3b82f6; 
-      --accent-hover: #2563eb;
-      --border-color: #333333;
-      --badge-bg: #2d2d2d;
+<style>
+  /* --- GLOBAL FIXES FOR LIGHT MODE --- */
+  
+  :global(html.light-theme) {
+    /* Softens the blinding white to a professional, industrial light gray */
+    --bg-main: #f0f2f5;
+  }
+
+  :global(body) {
+    /* Adds a subtle engineering dot-grid to fill the empty space! */
+    background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: -12px -12px;
+  }
+
+  :global(html.light-theme) .adaptation-wheel {
+    /* Forces the wheel to invert to black in light mode */
+    filter: invert(1);
+    opacity: 0.15;
+  }
+
+  /* --- EXISTING STYLES --- */
+
+  .hero, .portfolio-container {
+    max-width: 3000px; 
+    width: 95%; 
+    margin: 0 auto;
+  }
+
+  .hero {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 6rem 0 4rem 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .hero-left {
+    display: flex;
+    gap: 3rem; 
+    align-items: center;
+  }
+
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+    flex-shrink: 0; 
+  }
+
+  .bio-text {
+    text-align: left; 
+  }
+
+  .bio-text h1 {
+    font-size: 3rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--text-main);
+  }
+
+  .bio-text h2 {
+    font-size: 1.25rem;
+    color: var(--accent);
+    margin: 0 0 1rem 0;
+    font-weight: 500;
+  }
+
+  .bio-text p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 500px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Contact Buttons */
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background-color: var(--accent);
+    color: white; /* Stays white even in light mode for contrast */
+  }
+
+  .btn-primary:hover {
+    background-color: var(--accent-hover);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+  }
+
+  /* The Mahoraga Wheel Easter Egg */
+  .hero-right {
+    opacity: 0.2; 
+    align-self: flex-start; 
+    /* Pushed down to clear the theme toggle button */
+    margin-top: 1rem; 
+  }
+
+  .adaptation-wheel {
+    width: 100px;
+    height: 100px;
+    /* Clean, linear rotation every 8 seconds */
+    animation: heavy-crank 8s cubic-bezier(0.65, 0, 0.35, 1) infinite; 
+    transition: filter 0.3s ease, opacity 0.3s ease;
+  }
+
+  @keyframes heavy-crank {
+    0%, 80% { 
+      transform: rotate(0deg); 
     }
-
-    /* Light Theme Overrides */
-    html.light-theme {
-      --bg-main: #f9fafb;
-      --bg-card: #ffffff;
-      --text-main: #111827;
-      --text-muted: #4b5563;
-      --accent: #2563eb; 
-      --accent-hover: #1d4ed8;
-      --border-color: #e5e7eb;
-      --badge-bg: #e5e7eb;
+    100% { 
+      transform: rotate(360deg);
     }
+  }
 
-    html,
-    body {
-        margin: 0;
-        width: 100%;
-        height: 100%;
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .hero {
+      flex-direction: column-reverse;
+      text-align: center;
+      gap: 2rem;
     }
-
-    /* Base theme for the whole site */
-    body {
-      background-color: var(--bg-main);
-      color: var(--text-main);
-      font-family: system-ui, -apple-system, sans-serif;
-      margin: 0;
-      padding: 0;
-      transition: background-color 0.3s ease, color 0.3s ease;
+    .hero-left {
+      flex-direction: column;
     }
-
-    /* Theme Toggle Button Styles */
-    .theme-toggle {
-      position: absolute;
-      top: 2rem;
-      right: 2rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
+    .hero-links {
       justify-content: center;
-      cursor: pointer;
-      z-index: 1000;
-      transition: all 0.2s ease;
     }
-
-    .theme-toggle:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+    .hero-right {
+      align-self: center; 
+      /* Pushed down slightly on mobile to clear the button */
+      margin-top: 0rem; 
+      margin-bottom: -1rem; 
     }
+  }
 
-    /* Swap icons based on theme */
-    .moon-icon { display: none; }
-    html.light-theme .sun-icon { display: none; }
-    html.light-theme .moon-icon { display: block; }
+  /* The Grid Layout */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 2.5rem;
+    margin-top: 2rem;
+  }
 
-    /* Invert the Mahoraga wheel in light mode so it remains visible */
-    html.light-theme .adaptation-wheel {
-      filter: invert(1);
-      opacity: 0.1;
-    }
+  /* The Card Design */
+  .project-card {
+    max-width: 360px;
+    width: 100%;
+    margin: 0 auto;
+    display: block;             
+    text-decoration: none;      
+    color: inherit;             
+    background-color: var(--bg-card);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+    border: 1px solid var(--border-color);
+  }
 
-    /* Navigation Styles */
-    .top-nav {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem 2rem 0 2rem; 
-    }
+  .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15); /* Lowered shadow opacity slightly for light mode */
+    border-color: var(--accent);
+  }
 
-    .btn-back {
-      display: inline-block;
-      color: var(--text-muted); 
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      background-color: var(--bg-card);
-      border: 1px solid var(--border-color);
-      transition: all 0.2s ease;
-    }
+  .thumbnail-wrapper {
+    width: 100%;
+    height: 240px;
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s ease;
+  }
 
-    .btn-back:hover {
-      color: var(--text-main);
-      border-color: var(--accent); 
-    }
+  .thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+    padding: 1rem;
+    box-sizing: border-box;
+    display: block;
+  }
 
-    /* Centers and resizes the video */
-    .video-wrapper {
-      width: 100%;
-      max-width: 800px;
-      margin: 2rem auto;
-    }
+  .card-content {
+    padding: 1.5rem;
+  }
 
-    .video-wrapper iframe {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 16 / 9;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-    }
+  .card-content h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+  }
 
-    /* This replaces the old 'main' rule and ONLY targets Markdown pages */
-    .project-wrapper {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem;
-      line-height: 1.6;
-    }
+  .card-content p {
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
 
-    /* Responsiveness for Toggle Button */
-    @media (max-width: 768px) {
-      .theme-toggle {
-        top: 1rem;
-        right: 1rem;
-      }
-    }
+  /* Small badges for C++, ROS, etc. */
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-badge {
+    background-color: var(--badge-bg);
+    color: var(--accent);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-learn-more {
+    display: inline-block;
+    background-color: var(--accent);
+    color: white; /* Stays white for contrast */
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-learn-more:hover {
+    background-color: var(--accent-hover);
+  }
 </style>
