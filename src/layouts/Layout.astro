@@ -15,23 +15,9 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         
         <title>{pageTitle}</title>
 
-		<ClientRouter />
+        <ClientRouter />
     </head>
-
-	<div class="global-wheel-container" transition:persist="mahoraga-wheel">
-		<img src="/robotics-portfolio/wheel.svg" alt="Adaptation" class="global-wheel" />
-	</div>
-	
     <body>
-		<div class="global-wheel-container">
-			<img 
-			  src="/robotics-portfolio/wheel.svg" 
-			  alt="Adaptation" 
-			  class="global-wheel" 
-			  transition:persist="mahoraga-wheel" 
-			/>
-		</div>
-
         {/* This checks if the page is a Markdown project. If it is, it renders the button. */}
         {frontmatter && (
           <nav class="top-nav">
@@ -43,34 +29,6 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         <div class={frontmatter ? "project-wrapper" : ""}>
           <slot />
         </div>
-
-        <script>
-            document.addEventListener('astro:before-preparation', () => {
-              const wheel = document.querySelector('.global-wheel') as HTMLImageElement & { spinAnim?: Animation };
-              
-              if (wheel) {
-                  // 1. Create the animation object once and attach it to the persisted DOM node
-                  if (!wheel.spinAnim) {
-                      wheel.spinAnim = wheel.animate(
-                          [{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }],
-                          { duration: 3000, iterations: Infinity }
-                      );
-                  }
-                  // 2. Play it on the GPU, completely ignoring CSS classes
-                  wheel.spinAnim.play();
-              }
-            });
-            
-            document.addEventListener('astro:page-load', () => {
-              setTimeout(() => {
-                const wheel = document.querySelector('.global-wheel') as HTMLImageElement & { spinAnim?: Animation };
-                // 3. Smoothly hit the brakes when the page finishes loading
-                if (wheel && wheel.spinAnim) {
-                    wheel.spinAnim.pause();
-                }
-              }, 400); 
-            });
-        </script>
       </body>
 </html>
 
@@ -82,7 +40,7 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         height: 100%;
     }
 
-    /*  Navigation Styles  */
+    /* Navigation Styles  */
     .top-nav {
       max-width: 800px;
       margin: 0 auto;
@@ -139,37 +97,4 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
       padding: 2rem;
       line-height: 1.6;
     }
-
-  .global-wheel-container {
-    position: absolute;
-    top: 2rem;
-    right: 5%; 
-    opacity: 0.2;
-    z-index: 100;
-    pointer-events: none; 
-  }
-
-  .global-wheel {
-    width: 100px;
-    height: 100px;
-  }
-
-  /* When the page transitions, release the brake! */
-  .global-wheel.spinning {
-    animation-play-state: running;
-  }
-
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  @media (max-width: 768px) {
-    .global-wheel-container {
-      left: 50%;
-      right: auto;
-      transform: translateX(-50%);
-      top: 1rem;
-    }
-  }
 </style>

@@ -8,55 +8,55 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 ---
 
 <MainLayout>
-	<header class="hero">
-		<div class="hero-left">
-		  <img src="/robotics-portfolio/headshot.jpg" alt="Mark - Robotics Engineer" class="profile-pic" />
-		  
-		  <div class="bio-text">
-			<h1>Hi, I'm Mark.</h1>
-			<h2>Robotics Engineer</h2>
-			<p>
-			  I build robots and sometimes the software that makes them move. 
-			  Currently studying Robotics Engineering at Worcester Polytechnic Institute.
-			</p>
-			
-			<div class="hero-links">
-			  <a href="mailto:mkheyfets@wpi.edu" class="btn-primary">Email Me</a>
-			  <a href="/robotics-portfolio/resume.pdf" target="_blank" class="btn-secondary">View Resume</a>
-			</div>
-		  </div>
-		</div>
-	  
-		<!-- <div class="hero-right">
-		  <img src="/robotics-portfolio/wheel.svg" alt="Adaptation" class="adaptation-wheel" />
-		</div> -->
-	</header>
+    <header class="hero">
+        <div class="hero-left">
+          <img src="/robotics-portfolio/headshot.jpg" alt="Mark - Robotics Engineer" class="profile-pic" />
+          
+          <div class="bio-text">
+            <h1>Hi, I'm Mark.</h1>
+            <h2>Robotics Engineer</h2>
+            <p>
+              I build robots and sometimes the software that makes them move. 
+              Currently studying Robotics Engineering at Worcester Polytechnic Institute.
+            </p>
+            
+            <div class="hero-links">
+              <a href="mailto:mkheyfets@wpi.edu" class="btn-primary">Email Me</a>
+              <a href="/robotics-portfolio/resume.pdf" target="_blank" class="btn-secondary">View Resume</a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="hero-right">
+          <img src="/robotics-portfolio/wheel.svg" alt="Adaptation" class="adaptation-wheel" />
+        </div>
+    </header>
 
   <main class="portfolio-container">
     <h2>My Projects</h2>
     
     <div class="project-grid">
-		{projects.map((project) => (
-		  /* 1. The whole card is now the link */
-		  <a href={project.url} class="project-card">
-			
-			<img src={project.frontmatter.image} alt={project.frontmatter.title} class="thumbnail" />
-			
-			<div class="card-content">
-			  <h3>{project.frontmatter.title}</h3>
-			  <p>{project.frontmatter.summary}</p>
-			  
-			  <div class="tech-stack">
-				{project.frontmatter.tech.map((tool: string) => (
-				  <span class="tech-badge">{tool}</span>
-				))}
-			  </div>
-			  
-			  <span class="btn-learn-more">Learn More &rarr;</span>
-			</div>
-		  </a>
-		))}›
-	</div>
+        {projects.map((project) => (
+          /* 1. The whole card is now the link */
+          <a href={project.url} class="project-card">
+            
+            <img src={project.frontmatter.image} alt={project.frontmatter.title} class="thumbnail" />
+            
+            <div class="card-content">
+              <h3>{project.frontmatter.title}</h3>
+              <p>{project.frontmatter.summary}</p>
+              
+              <div class="tech-stack">
+                {project.frontmatter.tech.map((tool: string) => (
+                  <span class="tech-badge">{tool}</span>
+                ))}
+              </div>
+              
+              <span class="btn-learn-more">Learn More &rarr;</span>
+            </div>
+          </a>
+        ))}
+    </div>
   </main>
 </MainLayout>
 
@@ -71,7 +71,6 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     --text-muted: #9ca3af;
   }
 
-  /* Note: You might want to move these body styles to your MainLayout.astro later */
   body {
     background-color: var(--bg-dark);
     color: var(--text-main);
@@ -81,14 +80,14 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   }
 
   .hero, .portfolio-container {
-    max-width: 3000px; /* Keeps it contained on massive ultra-wide monitors */
-    width: 95%; /* Pushes everything out toward the edges of the screen */
+    max-width: 3000px; 
+    width: 95%; 
     margin: 0 auto;
   }
 
-	.hero {
+  .hero {
     display: flex;
-    justify-content: space-between; /* This strictly forces the left and right sections apart */
+    justify-content: space-between; 
     align-items: center;
     padding: 6rem 0 4rem 0;
     border-bottom: 1px solid #333;
@@ -106,7 +105,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--accent);
-    flex-shrink: 0; /* <--- This stops Flexbox from squishing it into an oval! */
+    flex-shrink: 0; 
   }
 
   .bio-text {
@@ -165,9 +164,23 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     border-color: var(--accent);
   }
 
-  /* When the global script says we are transitioning, release the brake! */
-  :global(.is-transitioning) .adaptation-wheel {
-    animation-play-state: running;
+  /* The Mahoraga Wheel Easter Egg */
+  .hero-right {
+    opacity: 0.2; 
+    align-self: flex-start; 
+    margin-top: -4rem;
+  }
+
+  .adaptation-wheel {
+    width: 100px;
+    height: 100px;
+    /* Clean, linear rotation every 7 seconds */
+    animation: spin 7s linear infinite; 
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
   /* Mobile Responsiveness */
@@ -183,29 +196,29 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     .hero-links {
       justify-content: center;
     }
-	.hero-right {
+    .hero-right {
       align-self: center; 
       margin-top: -2rem; 
       margin-bottom: -1rem; 
-	}
+    }
   }
 
   /* The Grid Layout */
   .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));; 
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
     gap: 2.5rem;
     margin-top: 2rem;
   }
 
   /* The Card Design */
   .project-card {
-	max-width: 360px;
+    max-width: 360px;
     width: 100%;
-	margin: 0 auto;
-    display: block;             /* Ensures the link fills the whole grid space */
-    text-decoration: none;      /* Removes the blue link underline */
-    color: inherit;             /* Keeps the text colors exactly how they were */
+    margin: 0 auto;
+    display: block;             
+    text-decoration: none;      
+    color: inherit;             
     background-color: var(--card-dark);
     border-radius: 8px;
     overflow: hidden;
