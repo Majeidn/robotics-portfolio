@@ -6,7 +6,6 @@ image: /robotics-portfolio/anakin.png
 tech: [MATLAB, Computer Vision, FK/IK, Image Processing]
 ---
 
-Here is a video of the arm in action:
 
 <div class="video-wrapper">
   <iframe 
