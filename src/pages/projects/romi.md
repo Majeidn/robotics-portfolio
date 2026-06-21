@@ -18,6 +18,7 @@ Built as part of Worcester Polytechnic Institute's Unified Robotics I (RBE 2001)
 
 To achieve this, the robot utilizes a custom-built C++ kinematics engine. Rather than relying on hardcoded joint positions, the software calculates real-time Inverse Kinematics (IK) to determine the exact motor and servo angles required to position the end-effector at specific *(X, Y)* coordinates in 2D space. The system also integrates PID control for smooth wheel odometry and trajectory execution.
 
+
 ### Hardware Setup
 The mechanical architecture of the Romi integrates an off-the-shelf drive base with a completely custom-manufactured manipulator, specifically optimized for a balance of weight and structural integrity.
 

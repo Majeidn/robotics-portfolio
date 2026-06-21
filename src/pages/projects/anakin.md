@@ -22,6 +22,7 @@ Built as part of Worcester Polytechnic Institute's Unified Robotics III: Manipul
 
 To achieve this, the software architecture utilizes a custom MATLAB-based kinematics engine. It performs complex Forward and Inverse Kinematics (FK/IK) to translate the robot's Cartesian task space into precise joint angles. To ensure smooth, hardware-safe movement between locations, the system employs quintic trajectory generation, calculating optimized position, velocity, and acceleration profiles for the arm during operation.
 
+
 ### Hardware Setup
 The physical and perceptual architecture of Anakin pairs a stationary manipulator with a calibrated overhead vision system to create a fully autonomous, closed-loop sorting environment.
 
