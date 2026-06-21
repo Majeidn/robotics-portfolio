@@ -30,3 +30,8 @@ The mechanical architecture of the Romi integrates an off-the-shelf drive base w
 * **Materials & Manufacturing:** The structural links were primarily laser-cut from medium-high impact acrylic to minimize joint friction and allow for rapid prototyping. Complex mechanical components, such as the 20-tooth drive gears and structural standoffs, were 3D printed using PLA.
 
 * **Engineering Validation:** The physical design was rigorously validated mathematically prior to fabrication. SolidWorks Finite Element Method (FEM) analysis was conducted to identify stress concentrations on the acrylic links and PLA gears to ensure forces remained well below yield strength limits. Additionally, full-system static Free Body Diagrams (FBD) and tipping point analysis were calculated via MATLAB to establish the maximum safe extension distances and payload capacities.
+
+
+<a href="https://majeidn.github.io/robotics-portfolio/rbe2001-report.pdf?v=2" target="_blank" style="display: inline-block; background: #3b82f6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 1rem;">
+  📄 Read the Full PDF Report
+</a>
