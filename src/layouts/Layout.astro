@@ -41,13 +41,16 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
 
         <script>
 			document.addEventListener('astro:before-preparation', () => {
-            document.documentElement.classList.add('is-transitioning');
-          });
-          document.addEventListener('astro:page-load', () => {
-            setTimeout(() => {
-              document.documentElement.classList.remove('is-transitioning');
-            }, 400); 
-          });
+			  const wheel = document.querySelector('.global-wheel');
+			  if (wheel) wheel.classList.add('spinning');
+			});
+			
+			document.addEventListener('astro:page-load', () => {
+			  setTimeout(() => {
+				const wheel = document.querySelector('.global-wheel');
+				if (wheel) wheel.classList.remove('spinning');
+			  }, 400); 
+			});
 		</script>
       </body>
 </html>
@@ -118,13 +121,13 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
       line-height: 1.6;
     }
 
-	.global-wheel-container {
+  .global-wheel-container {
     position: absolute;
     top: 2rem;
-    right: 5%; /* Matches your 95% website width */
+    right: 5%; 
     opacity: 0.2;
     z-index: 100;
-    pointer-events: none; /* Stops it from blocking clicks */
+    pointer-events: none; 
   }
 
   .global-wheel {
@@ -135,7 +138,7 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
   }
 
   /* When the page transitions, release the brake! */
-  :global(.is-transitioning) .global-wheel {
+  .global-wheel.spinning {
     animation-play-state: running;
   }
 
@@ -146,7 +149,6 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
 
   @media (max-width: 768px) {
     .global-wheel-container {
-      /* Centers the wheel perfectly on mobile */
       left: 50%;
       right: auto;
       transform: translateX(-50%);
