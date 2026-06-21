@@ -1,4 +1,7 @@
 ---
+// @ts-ignore
+import { ViewTransitions } from 'astro:transitions';
+
 const { frontmatter, title } = Astro.props;
 
 const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
@@ -12,8 +15,19 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         <meta name="generator" content={Astro.generator} />
         
         <title>{pageTitle}</title>
+
+		<ViewTransitions />
     </head>
     <body>
+		<div class="global-wheel-container">
+			<img 
+			  src="/robotics-portfolio/wheel.svg" 
+			  alt="Adaptation" 
+			  class="global-wheel" 
+			  transition:persist="mahoraga-wheel" 
+			/>
+		</div>
+
         {/* This checks if the page is a Markdown project. If it is, it renders the button. */}
         {frontmatter && (
           <nav class="top-nav">
@@ -27,17 +41,14 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         </div>
 
         <script>
-			// 1. Spin the wheel right before the browser leaves the current page
-			window.addEventListener('beforeunload', () => {
-			  document.documentElement.classList.add('is-transitioning');
-			});
-			
-			// 2. Stop the wheel shortly after the new page finishes loading
-			window.addEventListener('DOMContentLoaded', () => {
-			  setTimeout(() => {
-				document.documentElement.classList.remove('is-transitioning');
-			  }, 400); // 400ms delay lets the spin finish smoothly as the page appears
-			});
+			document.addEventListener('astro:before-preparation', () => {
+            document.documentElement.classList.add('is-transitioning');
+          });
+          document.addEventListener('astro:page-load', () => {
+            setTimeout(() => {
+              document.documentElement.classList.remove('is-transitioning');
+            }, 400); 
+          });
 		</script>
       </body>
 </html>
@@ -107,4 +118,40 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
       padding: 2rem;
       line-height: 1.6;
     }
+
+	.global-wheel-container {
+    position: absolute;
+    top: 2rem;
+    right: 5%; /* Matches your 95% website width */
+    opacity: 0.2;
+    z-index: 100;
+    pointer-events: none; /* Stops it from blocking clicks */
+  }
+
+  .global-wheel {
+    width: 100px;
+    height: 100px;
+    animation: spin 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite; 
+    animation-play-state: paused; 
+  }
+
+  /* When the page transitions, release the brake! */
+  :global(.is-transitioning) .global-wheel {
+    animation-play-state: running;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 768px) {
+    .global-wheel-container {
+      /* Centers the wheel perfectly on mobile */
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      top: 1rem;
+    }
+  }
 </style>
