@@ -78,9 +78,9 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     background-position: -12px -12px;
   }
 
-  :global(html.light-theme) .adaptation-wheel {
-    /* Forces the wheel to invert to black in light mode */
-    filter: invert(1);
+  :global(html.light-theme .adaptation-wheel) {
+    /* brightness(0) is a foolproof way to force any SVG to solid black */
+    filter: brightness(0);
     opacity: 0.15;
   }
 

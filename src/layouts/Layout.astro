@@ -47,6 +47,13 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
 
         {/* The Toggle Logic */}
         <script>
+          // Re-apply theme immediately after Astro swaps the page content
+          document.addEventListener('astro:after-swap', () => {
+            if (localStorage.getItem('theme') === 'light') {
+              document.documentElement.classList.add('light-theme');
+            }
+          });
+
           document.addEventListener('astro:page-load', () => {
             const toggleBtn = document.getElementById('theme-toggle');
             if (toggleBtn) {
@@ -135,12 +142,6 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
     .moon-icon { display: none; }
     html.light-theme .sun-icon { display: none; }
     html.light-theme .moon-icon { display: block; }
-
-    /* Invert the Mahoraga wheel in light mode so it remains visible */
-    html.light-theme .adaptation-wheel {
-      filter: invert(1);
-      opacity: 0.1;
-    }
 
     /* Navigation Styles */
     .top-nav {
