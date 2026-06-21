@@ -17,14 +17,20 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
 
 		<ClientRouter />
     </head>
+
+	<div class="global-wheel-container" transition:persist="mahoraga-wheel">
+		<img src="/robotics-portfolio/wheel.svg" alt="Adaptation" class="global-wheel" />
+	</div>
+	
     <body>
-		<div class="global-wheel-container" transition:persist="mahoraga-wheel">
-            <img 
-              src="/robotics-portfolio/wheel.svg" 
-              alt="Adaptation" 
-              class="global-wheel" 
-            />
-        </div>
+		<div class="global-wheel-container">
+			<img 
+			  src="/robotics-portfolio/wheel.svg" 
+			  alt="Adaptation" 
+			  class="global-wheel" 
+			  transition:persist="mahoraga-wheel" 
+			/>
+		</div>
 
         {/* This checks if the page is a Markdown project. If it is, it renders the button. */}
         {frontmatter && (
@@ -39,18 +45,32 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         </div>
 
         <script>
-			document.addEventListener('astro:before-preparation', () => {
-			  const wheel = document.querySelector('.global-wheel');
-			  if (wheel) wheel.classList.add('spinning');
-			});
-			
-			document.addEventListener('astro:page-load', () => {
-			  setTimeout(() => {
-				const wheel = document.querySelector('.global-wheel');
-				if (wheel) wheel.classList.remove('spinning');
-			  }, 400); 
-			});
-		</script>
+            document.addEventListener('astro:before-preparation', () => {
+              const wheel = document.querySelector('.global-wheel') as HTMLImageElement & { spinAnim?: Animation };
+              
+              if (wheel) {
+                  // 1. Create the animation object once and attach it to the persisted DOM node
+                  if (!wheel.spinAnim) {
+                      wheel.spinAnim = wheel.animate(
+                          [{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }],
+                          { duration: 3000, iterations: Infinity }
+                      );
+                  }
+                  // 2. Play it on the GPU, completely ignoring CSS classes
+                  wheel.spinAnim.play();
+              }
+            });
+            
+            document.addEventListener('astro:page-load', () => {
+              setTimeout(() => {
+                const wheel = document.querySelector('.global-wheel') as HTMLImageElement & { spinAnim?: Animation };
+                // 3. Smoothly hit the brakes when the page finishes loading
+                if (wheel && wheel.spinAnim) {
+                    wheel.spinAnim.pause();
+                }
+              }, 400); 
+            });
+        </script>
       </body>
 </html>
 
@@ -125,15 +145,13 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
     top: 2rem;
     right: 5%; 
     opacity: 0.2;
-    z-index: 9999;
+    z-index: 100;
     pointer-events: none; 
   }
 
   .global-wheel {
     width: 100px;
     height: 100px;
-    animation: spin 3s linear infinite; 
-    animation-play-state: paused;
   }
 
   /* When the page transitions, release the brake! */
