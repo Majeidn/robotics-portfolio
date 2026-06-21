@@ -165,31 +165,9 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     border-color: var(--accent);
   }
 
-  /*  The Mahoraga Wheel Easter Egg  */
-  .hero-right {
-    opacity: 0.2; /* Keeps it subtle so it doesn't overpower the page */
-	align-self: flex-start; 
-    margin-top: -4rem;
-  }
-
-  .adaptation-wheel {
-    width: 100px;
-    height: 100px;
-    /* Sped up to 1.5s so it noticeably cranks during the quick page load */
-    animation: spin 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite; 
-    
-    /* The Safety Brake: The wheel is paused by default */
-    animation-play-state: paused; 
-  }
-
   /* When the global script says we are transitioning, release the brake! */
   :global(.is-transitioning) .adaptation-wheel {
     animation-play-state: running;
-  }
-
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
   }
 
   /* Mobile Responsiveness */
