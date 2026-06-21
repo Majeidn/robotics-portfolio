@@ -200,13 +200,16 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   /* The Grid Layout */
   .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 380px);; 
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));; 
     gap: 2.5rem;
     margin-top: 2rem;
   }
 
   /* The Card Design */
   .project-card {
+	max-width: 360px;
+    width: 100%;
+	margin: 0 auto;
     display: block;             /* Ensures the link fills the whole grid space */
     text-decoration: none;      /* Removes the blue link underline */
     color: inherit;             /* Keeps the text colors exactly how they were */
