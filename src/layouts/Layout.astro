@@ -226,4 +226,44 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         right: 1.5rem;
       }
     }
+
+	/* PDF Report Button */
+    .btn-report {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-hover) 100%);
+      color: #ffffff;
+      padding: 0.85rem 1.5rem;
+      border-radius: 10px; 
+      text-decoration: none;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      font-size: 1.05rem;
+      
+      /* The human touch: A subtle dark border and a white inner-shadow to create a 3D lip */
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 4px 12px rgba(99, 102, 241, 0.25);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 2rem;
+    }
+
+    html.light-theme .btn-report {
+       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 12px rgba(79, 70, 229, 0.2);
+       border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-report:hover {
+      transform: translateY(-2px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 8px 16px rgba(99, 102, 241, 0.35);
+      filter: brightness(1.05);
+    }
+
+    .btn-report svg {
+      transition: transform 0.3s ease;
+    }
+
+    .btn-report:hover svg {
+      transform: translateY(-2px);
+    }
 </style>
