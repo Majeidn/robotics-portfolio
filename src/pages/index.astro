@@ -17,7 +17,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
             <h1>Hi, I'm Mark.</h1>
             <h2>Robotics Engineer</h2>
             <p>
-              I build robots and sometimes even the software that makes them move. 
+              I build robots and occasionally write the software that makes them move. 
               Currently studying Robotics Engineering at Worcester Polytechnic Institute.
             </p>
             
@@ -35,7 +35,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 
   <main class="portfolio-container">
     <div class="section-header">
-      <h2>My Projects</h2>
+      <h2>Featured Projects</h2>
       <div class="header-line"></div>
     </div>
     
@@ -71,7 +71,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   }
 
   .hero, .portfolio-container {
-    max-width: 3000px; 
+    max-width: 1100px; 
     width: 90%; 
     margin: 0 auto;
   }
@@ -259,17 +259,14 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     width: 100%;
     height: 220px;
     background-color: var(--bg-card);
-    border-bottom: 1px solid var(--border-color);
     transition: background-color 0.4s ease;
-    overflow: hidden; /* Ensures inner image doesn't break corners */
+    overflow: hidden; 
   }
 
   .thumbnail {
     width: 100%;
     height: 100%;
-    object-fit: contain; 
-    padding: 1.5rem;
-    box-sizing: border-box;
+    object-fit: cover; 
     display: block;
     transition: transform 0.6s ease;
   }
@@ -335,7 +332,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   /* Mobile Responsiveness */
   @media (max-width: 900px) {
     .hero {
-      flex-direction: column-reverse;   
+      flex-direction: column-reverse;
       text-align: center;
       gap: 3rem;
       padding: 4rem 0;
