@@ -66,7 +66,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 
 <style>
   :global(html.light-theme .adaptation-wheel) {
-    filter: brightness(0);
+    filter: invert(100%);
     opacity: 0.08;
   }
 
@@ -272,7 +272,6 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
     transition: transform 0.6s ease;
   }
 
-  /* Subtle image scale on hover for a premium feel */
   .project-card:hover .thumbnail {
     transform: scale(1.05);
   }
