@@ -17,7 +17,11 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
 
         <ClientRouter />
 
-        {/* This tiny script runs immediately to prevent a "flash" of dark mode if the user prefers light mode */}
+        {/* Premium Web Fonts */}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
         <script is:inline>
           if (typeof localStorage !== 'undefined' && localStorage.getItem('theme') === 'light') {
             document.documentElement.classList.add('light-theme');
@@ -25,29 +29,22 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
         </script>
     </head>
     <body>
-        {/* The Global Theme Toggle Button */}
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
-          {/* Sun Icon (shows in dark mode) */}
           <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-          {/* Moon Icon (shows in light mode) */}
           <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         </button>
 
-        {/* This checks if the page is a Markdown project. If it is, it renders the button. */}
         {frontmatter && (
           <nav class="top-nav">
             <a href="https://majeidn.github.io/robotics-portfolio/" class="btn-back">&larr; Back to Portfolio</a>
           </nav>
         )}
       
-        {/* I use a conditional class to only restrict width on project pages */}
         <div class={frontmatter ? "project-wrapper" : ""}>
           <slot />
         </div>
 
-        {/* The Toggle Logic */}
         <script>
-          // Re-apply theme immediately after Astro swaps the page content
           document.addEventListener('astro:after-swap', () => {
             if (localStorage.getItem('theme') === 'light') {
               document.documentElement.classList.add('light-theme');
@@ -72,130 +69,142 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
 </html>
 
 <style is:global>
-    /* --- GLOBAL COLOR VARIABLES --- */
+    /* --- HUMAN-CRAFTED COLOR PALETTE --- */
     :root {
-      /* Default Dark Theme */
-      --bg-main: #121212;
-      --bg-card: #1E1E1E;
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --accent: #3b82f6; 
-      --accent-hover: #2563eb;
-      --border-color: #333333;
-      --badge-bg: #2d2d2d;
+      /* Dark Theme - Warmer, richer zinc tones */
+      --bg-main: #18181b;      
+      --bg-card: #27272a;      
+      --text-main: #f4f4f5;    
+      --text-muted: #a1a1aa;   
+      --accent: #6366f1;       /* A sophisticated, softer indigo */
+      --accent-hover: #4f46e5; 
+      --border-color: rgba(255, 255, 255, 0.08);
+      --badge-bg: rgba(99, 102, 241, 0.15); 
+      --badge-text: #818cf8;
+      --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
     }
 
-    /* Light Theme Overrides */
     html.light-theme {
-      --bg-main: #f9fafb;
-      --bg-card: #ffffff;
-      --text-main: #111827;
-      --text-muted: #4b5563;
-      --accent: #2563eb; 
-      --accent-hover: #1d4ed8;
-      --border-color: #e5e7eb;
-      --badge-bg: #e5e7eb;
+      /* Light Theme - Soft, organic off-white (stone) */
+      --bg-main: #fafaf9;      
+      --bg-card: #ffffff;      
+      --text-main: #1c1917;    
+      --text-muted: #57534e;   
+      --accent: #4f46e5;       
+      --accent-hover: #4338ca; 
+      --border-color: rgba(0, 0, 0, 0.06);
+      --badge-bg: rgba(79, 70, 229, 0.1);
+      --badge-text: #4338ca;
+      --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
     }
 
-    html,
-    body {
+    html, body {
         margin: 0;
         width: 100%;
         height: 100%;
     }
 
-    /* Base theme for the whole site */
     body {
       background-color: var(--bg-main);
       color: var(--text-main);
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       margin: 0;
       padding: 0;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Theme Toggle Button Styles */
+    /* Clean, modern typography for headings */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    /* Softened Theme Toggle */
     .theme-toggle {
       position: absolute;
       top: 2rem;
       right: 2rem;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      color: var(--text-main);
+      color: var(--text-muted);
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 1000;
-      transition: all 0.2s ease;
+      box-shadow: var(--shadow-base);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .theme-toggle:hover {
-      border-color: var(--accent);
       color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
     }
 
-    /* Swap icons based on theme */
     .moon-icon { display: none; }
     html.light-theme .sun-icon { display: none; }
     html.light-theme .moon-icon { display: block; }
 
-    /* Navigation Styles */
+    /* Navigation */
     .top-nav {
       max-width: 800px;
       margin: 0 auto;
-      padding: 2rem 2rem 0 2rem; 
+      padding: 3rem 2rem 0 2rem; 
     }
 
     .btn-back {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       color: var(--text-muted); 
       text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
       background-color: var(--bg-card);
       border: 1px solid var(--border-color);
-      transition: all 0.2s ease;
+      box-shadow: var(--shadow-base);
+      transition: all 0.3s ease;
     }
 
     .btn-back:hover {
-      color: var(--text-main);
-      border-color: var(--accent); 
+      color: var(--accent);
+      transform: translateX(-4px); 
+      border-color: var(--accent);
     }
 
-    /* Centers and resizes the video */
-    .video-wrapper {
-      width: 100%;
-      max-width: 800px;
-      margin: 2rem auto;
-    }
-
-    .video-wrapper iframe {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 16 / 9;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-    }
-
-    /* This replaces the old 'main' rule and ONLY targets Markdown pages */
     .project-wrapper {
       max-width: 800px;
       margin: 0 auto;
       padding: 2rem;
-      line-height: 1.6;
+      line-height: 1.75;
+      font-size: 1.05rem;
+      color: var(--text-muted);
     }
 
-    /* Responsiveness for Toggle Button */
+    .project-wrapper h1, .project-wrapper h2, .project-wrapper h3 {
+      color: var(--text-main);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-wrapper img {
+      box-shadow: var(--shadow-base);
+    }
+
     @media (max-width: 768px) {
       .theme-toggle {
-        top: 1rem;
-        right: 1rem;
+        top: 1.5rem;
+        right: 1.5rem;
       }
     }
 </style>
