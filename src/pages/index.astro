@@ -33,35 +33,65 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
         </div>
     </header>
 
-  <main class="portfolio-container">
-    <div class="section-header">
-      <h2>Featured Projects</h2>
-      <div class="header-line"></div>
-    </div>
-    
-    <div class="project-grid">
-        {projects.map((project) => (
-          <a href={project.url} class="project-card">
-            <div class="thumbnail-wrapper">
-              <img src={project.frontmatter.image} alt={project.frontmatter.title} class="thumbnail" />
-            </div>
-            
-            <div class="card-content">
-              <h3>{project.frontmatter.title}</h3>
-              <p>{project.frontmatter.summary}</p>
-              
-              <div class="tech-stack">
-                {project.frontmatter.tech.map((tool: string) => (
-                  <span class="tech-badge">{tool}</span>
-                ))}
+    <main class="portfolio-container">
+      <!-- FIRST TAB: Engineering Projects -->
+      <div class="section-header">
+        <h2>Engineering Projects</h2>
+        <div class="header-line"></div>
+      </div>
+      
+      <div class="project-grid">
+          {projects.filter(p => p.frontmatter.title !== 'Nuclear Fusion Sentiment Analysis').map((project) => (
+            <a href={project.url} class="project-card">
+              <div class="thumbnail-wrapper">
+                <img src={project.frontmatter.image} alt={project.frontmatter.title} class="thumbnail" />
               </div>
               
-              <span class="btn-learn-more">View Project &rarr;</span>
-            </div>
-          </a>
-        ))}
-    </div>
-  </main>
+              <div class="card-content">
+                <h3>{project.frontmatter.title}</h3>
+                <p>{project.frontmatter.summary}</p>
+                
+                <div class="tech-stack">
+                  {project.frontmatter.tech.map((tool: string) => (
+                    <span class="tech-badge">{tool}</span>
+                  ))}
+                </div>
+                
+                <span class="btn-learn-more">View Project &rarr;</span>
+              </div>
+            </a>
+          ))}
+      </div>
+  
+      <!-- SECOND TAB: Research & Strategy (Non-Tech) -->
+      <div class="section-header" style="margin-top: 5rem;">
+        <h2>Research & Strategy</h2>
+        <div class="header-line"></div>
+      </div>
+      
+      <div class="project-grid">
+          {projects.filter(p => p.frontmatter.title === 'Nuclear Fusion Sentiment Analysis').map((project) => (
+            <a href={project.url} class="project-card">
+              <div class="thumbnail-wrapper">
+                <img src={project.frontmatter.image} alt={project.frontmatter.title} class="thumbnail" />
+              </div>
+              
+              <div class="card-content">
+                <h3>{project.frontmatter.title}</h3>
+                <p>{project.frontmatter.summary}</p>
+                
+                <div class="tech-stack">
+                  {project.frontmatter.tech.map((tool: string) => (
+                    <span class="tech-badge">{tool}</span>
+                  ))}
+                </div>
+                
+                <span class="btn-learn-more">View Project &rarr;</span>
+              </div>
+            </a>
+          ))}
+      </div>
+    </main>
 </MainLayout>
 
 <style>
@@ -335,7 +365,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 
   /* Mobile Responsiveness */
   @media (max-width: 900px) {
-    
+
     .project-grid {
       justify-content: center;
     }
