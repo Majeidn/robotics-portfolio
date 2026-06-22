@@ -17,7 +17,7 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
 
         <ClientRouter />
 
-        {/* Premium Web Fonts */}
+        {/* Web Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -69,7 +69,7 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
 </html>
 
 <style is:global>
-    /* --- HUMAN-CRAFTED COLOR PALETTE --- */
+    /* COLOR PALETTE */
     :root {
       /* Dark Theme - Warmer, richer zinc tones */
       --bg-main: #18181b;      
@@ -117,11 +117,30 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Clean, modern typography for headings */
+    /* Clean typography for headings */
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Outfit', sans-serif;
       font-weight: 600;
       letter-spacing: -0.02em;
+    }
+
+	/* Video Player */
+    .video-wrapper {
+      width: 100%;
+      margin: 2.5rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-base);
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-card);
+    }
+
+    .video-wrapper iframe {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      display: block;
+      border: none;
     }
 
     /* Softened Theme Toggle */
@@ -156,7 +175,7 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
 
     /* Navigation */
     .top-nav {
-      max-width: 800px;
+      max-width: 3000px;
       margin: 0 auto;
       padding: 3rem 2rem 0 2rem; 
     }
@@ -183,7 +202,7 @@ const pageTitle = frontmatter?.title || title || "Mark's Robotics Portfolio";
     }
 
     .project-wrapper {
-      max-width: 800px;
+      max-width: 3000px;
       margin: 0 auto;
       padding: 2rem;
       line-height: 1.75;
