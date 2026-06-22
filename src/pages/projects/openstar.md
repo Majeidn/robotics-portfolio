@@ -3,7 +3,7 @@ layout: ../../layouts/Layout.astro
 title: Nuclear Fusion Sentiment Analysis
 category: research
 summary: Developed an evidence-based public outreach policy for OpenStar Technologies by mapping public sentiment towards nuclear fusion in the New Zealand energy sector.
-image: /robotics-portfolio/images/openstar.png
+image: /robotics-portfolio/openstar.png
 tech: [Data Analysis, Public Policy, Survey Design, Tech Communication, Streamlit]
 ---
 
