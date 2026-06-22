@@ -230,7 +230,9 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
   /* Modern Grid Layout */
   .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+    /* Fixed Card Size: Replaced 1fr with minmax(280px, 350px) to prevent wide stretching */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 350px)); 
+    justify-content: center; /* Keeps the cards centered nicely in the middle */
     gap: 2.5rem;
     padding-bottom: 6rem;
   }
