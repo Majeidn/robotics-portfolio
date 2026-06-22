@@ -17,7 +17,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
             <h1>Hi, I'm Mark.</h1>
             <h2>Robotics Engineer</h2>
             <p>
-              I build robots and occasionally write the software that makes them move. 
+              I build robots and sometimes even the software that makes them move. 
               Currently studying Robotics Engineering at Worcester Polytechnic Institute.
             </p>
             
@@ -335,6 +335,11 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 
   /* Mobile Responsiveness */
   @media (max-width: 900px) {
+    
+    .project-grid {
+      justify-content: center;
+    }
+
     .hero {
       flex-direction: column-reverse;
       text-align: center;
