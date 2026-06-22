@@ -65,11 +65,13 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 </MainLayout>
 
 <style>
+
+  :global(html.light-theme .hero-right) {
+    opacity: 0.5 !important; 
+  }
+
   :global(html.light-theme .adaptation-wheel) {
-    filter: brightness(0) invert(1) !important; 
-    
-    /* We bump the opacity back up so it doesn't double-stack and vanish! */
-    opacity: 0.6 !important;
+    filter: invert(1) !important; 
   }
 
   .hero, .portfolio-container {
@@ -268,7 +270,7 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 
   .thumbnail {
     width: 100%;
-    height: auto%;
+    height: auto;
     object-fit: cover; 
     display: block;
     transition: transform 0.6s ease;
