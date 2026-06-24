@@ -1,5 +1,6 @@
 ---
 import MainLayout from '../layouts/Layout.astro';
+import DotField from '../components/DotField.jsx';
 
 // @ts-ignore
 const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true })) as any[];
@@ -7,6 +8,13 @@ const projects = Object.values(import.meta.glob('./projects/*.md', { eager: true
 
 <MainLayout>
     <header class="hero">
+      <DotField 
+          client:load 
+          dotRadius={1.5} 
+          dotSpacing={14} 
+          glowColor="rgba(99, 102, 241, 0.15)" 
+        />
+        
         <div class="hero-left">
           <div class="profile-wrapper">
             <img src="/robotics-portfolio/headshot.jpg" alt="Mark - Robotics Engineer" class="profile-pic" />
