@@ -22,24 +22,10 @@ To bridge the gap between complex plasma physics and general public understandin
 
 To translate raw public sentiment into an actionable corporate strategy, our team utilized a multi-faceted, mixed-methods data collection pipeline and statistical analysis framework.
 
-<div class="hardware-grid">
-  <div class="hw-card">
-    <strong>Mixed-Methods Survey Design</strong>
-    <span>Designed and deployed comprehensive surveys across Wellington and online platforms to capture a diverse cross-section of demographics. The survey incorporated an experimental A/B testing framework to measure if the inclusion of the word "nuclear" alongside "fusion" statistically altered public support or perceived safety (a t-test revealed no statistically significant difference).</span>
-  </div>
-  
-  <div class="hw-card">
-    <strong>Qualitative & Expert Interviews</strong>
-    <span>Supplemented quantitative data with semi-structured interviews. We conducted deep-dives with everyday citizens to understand their energy literacy, and performed purposive sampling to interview high-level experts across engineering, public policy, academia, and the New Zealand energy industry.</span>
-  </div>
-  
-  <div class="hw-card">
-    <strong>Sentiment Analysis & Coding</strong>
-    <span>Processed responses using statistical correlation studies and in-vivo interview coding. The data revealed a direct, strong correlation between fusion familiarity and positive sentiment, highlighting that public opposition is highly malleable and rooted in a lack of accessible, transparent education.</span>
-  </div>
-  
-  <div class="hw-card">
-    <strong>Strategic Corporate Deliverables</strong>
-    <span>Synthesized our findings into a formal, evidence-based communications policy for OpenStar's executive team. The delivered framework included recommendations for two-way sentiment mapping tools (like Pol.is), an ambassador toolkit for community leaders, and audience-specific value-driven storytelling matrices to guide their regulatory roadmap.</span>
-  </div>
-</div>
+* **Mixed-Methods Survey Design:** Designed and deployed comprehensive surveys across Wellington and online platforms to capture a diverse cross-section of demographics. The survey incorporated an experimental A/B testing framework to measure if the inclusion of the word "nuclear" alongside "fusion" statistically altered public support or perceived safety (a t-test revealed no statistically significant difference).
+
+* **Qualitative & Expert Interviews:** Supplemented quantitative data with semi-structured interviews. We conducted deep-dives with everyday citizens to understand their energy literacy, and performed purposive sampling to interview high-level experts across engineering, public policy, academia, and the New Zealand energy industry.
+
+* **Sentiment Analysis & Coding:** Processed responses using statistical correlation studies and in-vivo interview coding. The data revealed a direct, strong correlation between fusion familiarity and positive sentiment, highlighting that public opposition is highly malleable and rooted in a lack of accessible, transparent education.
+
+* **Strategic Corporate Deliverables:** Synthesized our findings into a formal, evidence-based communications policy for OpenStar's executive team. The delivered framework included recommendations for two-way sentiment mapping tools (like Pol.is), an ambassador toolkit for community leaders, and audience-specific value-driven storytelling matrices to guide their regulatory roadmap.
