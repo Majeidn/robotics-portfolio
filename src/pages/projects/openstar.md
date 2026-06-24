@@ -29,3 +29,8 @@ To translate raw public sentiment into an actionable corporate strategy, our tea
 * **Sentiment Analysis & Coding:** Processed responses using statistical correlation studies and in-vivo interview coding. The data revealed a direct, strong correlation between fusion familiarity and positive sentiment, highlighting that public opposition is highly malleable and rooted in a lack of accessible, transparent education.
 
 * **Strategic Corporate Deliverables:** Synthesized our findings into a formal, evidence-based communications policy for OpenStar's executive team. The delivered framework included recommendations for two-way sentiment mapping tools (like Pol.is), an ambassador toolkit for community leaders, and audience-specific value-driven storytelling matrices to guide their regulatory roadmap.
+
+<a href="/robotics-portfolio/openstar.pdf?v=2" target="_blank" class="btn-report">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+  Read the Full Report
+</a>
